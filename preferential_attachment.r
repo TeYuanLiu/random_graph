@@ -1,0 +1,13 @@
+rm(list=ls())
+library("igraph")
+g <- barabasi.game(10000, m=1, directed=F)
+wtc <- cluster_walktrap(g)
+print(modularity(wtc))
+#is.connected(g)
+#hist(degree.distribution(g))
+#average.path.length(g)
+#fg <- fastgreedy.community(g)
+#cmsize <- sizes(fg)
+#print(cmsize)
+
+#plot(g1, vertex.size=8, vertex.label.cex=0.7)
