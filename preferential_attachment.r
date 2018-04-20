@@ -75,23 +75,29 @@ m_routine = function(m_value){
     # Analyze preferential attachment model
     #(a)
     g1 = barabasi.game(1000, m=m_value, directed=F)
+    plot(g1, vertex.size=4, vertex.label.cex=0.2)
 
     #(b)
     fg1 = fastgreedy.community(g1)
+    layout1 = layout.fruchterman.reingold(g1)
+    plot(fg1, g1, layout=layout1, vertex.size=4, vertex.label.cex=0.2)
     print(modularity(g1, membership(fg1)))
 
     #(c)
     g2 = barabasi.game(10000, m=m_value, directed=F)
     fg2 = fastgreedy.community(g2)
     print(modularity(g2, membership(fg2)))
+    plot(g2, vertex.size=4, vertex.label.cex=0.2)
+    layout2 = layout.fruchterman.reingold(g2)
+    plot(fg2, g2, layout=layout2, vertex.size=4, vertex.label.cex=0.2)
 
     #(d)
     dd_plot_and_fit(g1)
     dd_plot_and_fit(g2)
 
     #(e)
-    #random_dd_plot_and_fit(g1)
-    #random_dd_plot_and_fit(g2)
+    random_dd_plot_and_fit(g1)
+    random_dd_plot_and_fit(g2)
 
     #(f)
     plot_k_i(m_value)
@@ -102,7 +108,7 @@ stub_matching = function(){
     fg1 = fastgreedy.community(g1)
     print(modularity(g1, membership(fg1)))
     layout1 = layout.fruchterman.reingold(g1)
-    plot(fg1, g1, layout=layout1, vertex.size=2, vertex.label.cex=0.2)
+    plot(fg1, g1, layout=layout1, vertex.size=4, vertex.label.cex=0.2)
 
     d_s = degree(g1)
     n_num = vcount(g1)
@@ -122,16 +128,19 @@ stub_matching = function(){
     fg2 = fastgreedy.community(g2)
     print(modularity(g2, membership(fg2)))
     layout2 = layout.fruchterman.reingold(g2)
-    plot(fg2, g2, layout=layout2, vertex.size=2, vertex.label.cex=0.2)
+    plot(fg2, g2, layout=layout2, vertex.size=4, vertex.label.cex=0.2)
 }
 
 #########################
 #  Main Function
 #########################
 main = function(){
-    #m_routine(1)
-    #m_routine(2)
-    #m_routine(5)
+    m_routine(1)
+    print("*****************************************")
+    m_routine(2)
+    print("*****************************************")
+    m_routine(5)
+    print("*****************************************")
     stub_matching()
 }
 main()
