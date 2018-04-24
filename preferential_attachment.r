@@ -34,6 +34,7 @@ dd_plot_and_fit = function(graph){
 
     plot(probability ~ degree, log="xy", xlab="Degree (log)", ylab="Probability (log)", col=1, main="Degree Distribution")
     curve(power.law.fit, col="red", add=T, n=length(d))
+    alpha
 }
 
 random_dd_plot_and_fit = function(graph){
@@ -64,6 +65,7 @@ random_dd_plot_and_fit = function(graph){
     print(paste("R square =", round(R.square, 3)))
     plot(probability ~ degree, log="xy", xlab="Degree (log)", ylab="Probability (log)", col=1, main="Degree Distribution")
     curve(power.law.fit, col="red", add=T, n=length(d))
+    alpha
 }
 
 plot_k_i = function(m){
@@ -129,12 +131,28 @@ stub_matching = function(){
     print(modularity(g2, membership(fg2)))
     layout2 = layout.fruchterman.reingold(g2)
     plot(fg2, g2, layout=layout2, vertex.size=4, vertex.label.cex=0.2)
+    dd_plot_and_fit(g1)
+    dd_plot_and_fit(g2)
+}
+
+power_law_test = function(){
+    x = c(3,4,5,6,7)
+    x_p = 10^x
+    y = numeric(length(x))
+    y_index = 0
+    for(i in x_p){
+        g = barabasi.game(i, m=1, directed=F)
+        y_index = y_index + 1
+        y[y_index] = dd_plot_and_fit(g)
+    }
+    plot(y ~ x_p, log="", type="o", xlab="Number of nodes", ylab="Power exponent of power law", col=1, main="Power Law Verification") 
 }
 
 #########################
 #  Main Function
 #########################
 main = function(){
+    #power_law_test()
     m_routine(1)
     print("*****************************************")
     m_routine(2)
